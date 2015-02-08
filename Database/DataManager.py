@@ -2,7 +2,7 @@ __author__ = 'Niels'
 
 import folderStructure.folder as folder
 from json import *
-
+import Database.Table as table
 
 
 class DataManager():
@@ -17,13 +17,13 @@ class DataManager():
 		files = self.folder.getFiles()
 		for file in files:
 			if ".py" not in file:
-				f = open(self.folder.getPath()+"/"+file, "r")
-				key = file[:file.index(".")]
-				try:
-					jsonData = load(f)
-					retDict[key] = jsonData
-				except:
-					pass
+				if "__" not in file:
+					key = file[:file.index(".")]
+					try:
+						jsonData = table.Table(self.folder.getPath()+"/"+file)
+						retDict[key] = jsonData
+					except:
+						pass
 
 		return  retDict
 
