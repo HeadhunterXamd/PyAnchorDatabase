@@ -6,10 +6,10 @@ import Database.Table as table
 
 class DataManager():
 
-	def __init__(self):
+	def __init__(self, address):
 		from pymongo.mongo_client import MongoClient as mc
 		self.folder = folder.Folder(__file__)
-		self.dbClient = mc('mongodb://localhost:27017/')
+		self.dbClient = mc(address)
 		self.db = self.dbClient.mydb
 		self.tables = self.getTables()
 
