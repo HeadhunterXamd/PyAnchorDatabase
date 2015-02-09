@@ -1,7 +1,7 @@
 __author__ = 'Niels'
 from json import *
 import random
-
+from pymongo import MongoClient
 
 def generateRandomString(length:int):
 	s = " aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789"
@@ -22,8 +22,11 @@ def generateRandomTable(length):
 
 	return table
 
+client = MongoClient('mongodb://localhost:27017/')
+db = client.mydb
 
 for x in range(5):
-	f = open(str(x)+".table", "w")
-	table = generateRandomTable(15)
-	dump(table, f)
+	table = generateRandomTable(500)
+	db.data.insert(table)
+
+print(db.collection_names())
