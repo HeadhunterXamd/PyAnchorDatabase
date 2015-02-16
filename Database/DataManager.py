@@ -2,21 +2,22 @@ __author__ = 'Niels'
 
 import folderStructure.folder as folder
 from json import *
-import Database.Table as table
+from Database import dataBase, Table
+from pymongo.mongo_client import MongoClient
+
+
 
 class DataManager():
 
 	def __init__(self, address):
-		from pymongo.mongo_client import MongoClient as mc
-		self.folder = folder.Folder(__file__)
-		self.dbClient = mc(address)
+		self.dbClient = MongoClient(address)
 		self.db = self.dbClient.mydb
 		self.tables = self.getTables()
 
 
 
 	def getTables(self)->dict:
-		return table.Table(self.db)
+		return Table.Table(self.db)
 
 
 	def getData(self, table=None):

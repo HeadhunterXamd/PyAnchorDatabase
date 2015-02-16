@@ -5,6 +5,7 @@ from pymongo import MongoClient
 class Table(dict):
 
 	def __init__(self, db):
+		super().__init__()
 		self.db = db
 		self.data = self.parseTablefile()
 		self.keys = self.data.keys()
