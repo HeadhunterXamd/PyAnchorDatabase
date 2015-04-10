@@ -4,7 +4,7 @@ import os, sys
 
 class Folder():
 
-	def __init__(self, file):
+	def __init__(self, file=__file__):
 		self.__filepath = os.path.abspath(file)
 		self.__path = self.parsePath()
 
@@ -12,16 +12,16 @@ class Folder():
 		return self.__path
 
 	def parsePath(self):
-		p = self.__filepath.split("\\")
-		p.pop(len(p)-1)
-		s = None
-		for item in p:
-			if s == None:
-				s = item
+		splitpath = self.__filepath.split("\\")
+		splitpath.pop(len(splitpath)-1)
+		stringpath = None
+		for item in splitpath:
+			if stringpath == None:
+				stringpath = item
 			else:
-				s += "/"+str(item)
+				stringpath += "/"+str(item)
 
-		return s
+		return stringpath
 
 	def checkForFile(self, filename:str):
 		""" returns True if the file exists """
